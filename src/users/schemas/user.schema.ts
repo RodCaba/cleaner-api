@@ -24,10 +24,10 @@ export class User {
   phone: string;
 
   @Prop()
-  workingHoursStart: string;
+  workingHoursStart: number;
 
   @Prop()
-  workingHoursEnd: string;
+  workingHoursEnd: number;
 
   @Prop({ default: true })
   isActive: boolean;

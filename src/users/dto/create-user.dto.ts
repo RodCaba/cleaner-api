@@ -1,4 +1,4 @@
-import { IsDateString, IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsInt, IsString, Max, Min } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
@@ -18,9 +18,13 @@ export class CreateUserDto {
 }
 
 export class CreateCleanerDto extends CreateUserDto {
-  @IsDateString()
+  @IsInt()
+  @Min(0)
+  @Max(23)
   workingHoursStart: string;
 
-  @IsDateString()
+  @IsInt()
+  @Min(0)
+  @Max(23)
   workingHoursEnd: string;
 }
