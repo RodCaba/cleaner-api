@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateCleanerDto, CreateUserDto } from 'src/users/dto/create-user.dto';
 import { SignupResponseDto } from './dto/signup.dto';
 import { LocalGuard } from './guards/local.guard';
 import { Request } from 'express';
@@ -12,6 +12,13 @@ export class AuthController {
   @Post('signup')
   async signup(
     @Body() payload: CreateUserDto,
+  ): Promise<SignupResponseDto | null> {
+    return await this.authService.signup(payload);
+  }
+
+  @Post('signup-cleaner')
+  async signupCleaner(
+    @Body() payload: CreateCleanerDto,
   ): Promise<SignupResponseDto | null> {
     return await this.authService.signup(payload);
   }

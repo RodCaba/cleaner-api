@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateCleanerDto, CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
+import { Roles } from './enums/roles';
 
 @Injectable()
 export class AuthService {
@@ -21,6 +22,27 @@ export class AuthService {
     return {
       success: true,
       message: 'User created successfully',
+      data: {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+    };
+  }
+
+  async signupCleaner(payload: CreateCleanerDto) {
+    const hashedPassowrd = await bcrypt.hash(payload.password, this.saltRounds);
+    const data = {
+      ...payload,
+      password: hashedPassowrd,
+      roles: [Roles.CLEANER],
+      isActive: false,
+    };
+    const user = await this.usersService.create(data);
+
+    return {
+      success: true,
+      message: 'Cleaner created successfully',
       data: {
         email: user.email,
         firstName: user.firstName,
