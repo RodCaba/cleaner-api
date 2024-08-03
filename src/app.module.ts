@@ -5,7 +5,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AccessControlModule } from 'nest-access-control';
 import { RBAC_POLICY } from './auth/rbac-policy';
-import { ServiceModule } from './service/services.module';
+import { ServicesModule } from './service/services.module';
 
 @Module({
   imports: [
@@ -26,7 +26,7 @@ import { ServiceModule } from './service/services.module';
     AccessControlModule.forRoles(RBAC_POLICY),
     UsersModule,
     AuthModule,
-    ServiceModule,
+    ServicesModule,
   ],
 })
 export class AppModule {}
