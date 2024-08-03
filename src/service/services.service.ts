@@ -3,6 +3,7 @@ import { CreateServiceDto } from './dto/create-service.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Service } from './schemas/service.schema';
 import { Model } from 'mongoose';
+import { ServiceOverlapError } from './schemas/errors.schema';
 
 @Injectable()
 export class ServicesService {
@@ -30,7 +31,7 @@ export class ServicesService {
     });
 
     if (overlapService) {
-      throw new Error('Service time is overlapped');
+      throw new ServiceOverlapError();
     }
 
     const createdService = new this.serviceModel({
