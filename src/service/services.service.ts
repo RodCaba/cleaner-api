@@ -10,8 +10,11 @@ export class ServicesService {
     @InjectModel(Service.name)
     private serviceModel: Model<Service>,
   ) {}
-  async create(createServiceDto: CreateServiceDto) {
-    const createdService = new this.serviceModel(createServiceDto);
+  async create(createServiceDto: CreateServiceDto, userId: string) {
+    const createdService = new this.serviceModel({
+      ...createServiceDto,
+      userId,
+    });
     return await createdService.save();
   }
 }

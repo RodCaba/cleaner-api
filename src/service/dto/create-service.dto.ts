@@ -8,8 +8,5 @@ export class CreateServiceDto {
   endDateTime: Date;
 
   @IsString()
-  userId: string;
-
-  @IsString()
   cleanerId: string;
 }
